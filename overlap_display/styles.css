@@ -1,0 +1,80 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+.jsonl-file{
+  width: 800px; /* Set the width to your desired value */
+}
+
+.page-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 10px auto;
+  background-color: #fff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden; /* Hide any overflowing content */
+}
+
+.container {
+  flex: 1;
+  padding: 0px;
+  overflow-y: auto; /* Add vertical scroll if content overflows */
+  max-height: 100vh; /* Limit the container height to 80% of the viewport height */
+}
+
+.navigation {
+  width: 200px;
+  border-right: 1px solid #ccc;
+  padding: 10px;
+  overflow-y: auto; /* Add vertical scroll if content overflows */
+  max-height: 80vh; /* Limit the navigation container height */
+}
+
+.paragraph-container {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  overflow-y: auto; /* Add vertical scroll if content overflows */
+  max-height: 400px; /* Limit the paragraph container height */
+}
+
+.bold {
+  font-weight: bold;
+  color: blue;
+  position: relative; /* Required for the ::before pseudo-element */
+}
+
+.bold:hover::before {
+  content: " Count: " attr(data-count) ; /* Display count on hover */
+  /* background-color: #000 */
+  background-color: rgba(0, 0, 0, 0.5); /* Background color with 80% opacity */
+ ;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+span[data-count] {
+  cursor: default; /* Show the cursor as a pointer when hovering over words with counts */
+}
+
+/* Additional styles for scenario sections */
+.scenario-section {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
