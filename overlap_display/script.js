@@ -23,11 +23,14 @@ document.addEventListener("DOMContentLoaded", function () {
           const split = jsonData.entry_data_overlap_key.stats_key.light_scenario_key.split;
           const part = jsonData.entry_data_overlap_key.part;
           const instanceId = jsonData.entry_data_overlap_key.instance_id;
-          const counts = jsonData.counts;
-          const weightedCounts = jsonData.weighted_counts;
+          const overlapCounts = jsonData.overlap_counts;
+          const weightedOverlapCounts = jsonData.weighted_overlap_counts;
+          const totalCounts = jsonData.total_counts
+          const overlapRatio = jsonData.overlap_ratio;
+          const weightedOverlapRatio = jsonData.weighted_overlap_ratio;;
 
           const annotationsData = document.createElement("pre");
-          annotationsData.textContent = `Scenario Spec: ${JSON.stringify(scenarioSpec, null, 2)}\nSplit: ${split}\nPart: ${part}\nInstance ID: ${instanceId}\nCounts: ${counts}\nWeighted Counts: ${weightedCounts}`;
+          annotationsData.textContent = `Scenario Spec: ${JSON.stringify(scenarioSpec, null, 2)}\nSplit: ${split}\nPart: ${part}\nInstance ID: ${instanceId}\nOverlap Counts: ${overlapCounts}\nWeighted Overlap Counts: ${weightedOverlapCounts}\nTotal Counts: ${totalCounts}\nOverlap Ratio: ${overlapRatio}\nWeighted Overlap Ratio: ${weightedOverlapRatio}\n`;
           annotationsContainer.appendChild(annotationsData);
 
           // Create a container for the main paragraph content
