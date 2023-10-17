@@ -1,4 +1,3 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   function loadJSONL(filename) {
 
@@ -12,60 +11,57 @@ document.addEventListener("DOMContentLoaded", function () {
 
         jsonObjects.forEach((jsonObject) => {
           const jsonData = JSON.parse(jsonObject);
-          const paragraphData = jsonData.annotated_entry_overlap;
 
-          // Create a container for the annotations data
-          const annotationsContainer = document.createElement("div");
-          annotationsContainer.classList.add("annotations");
+          ['annotated_input_overlap', 'annotated_ref_overlap'].forEach(overlapType => {
+            const paragraphData = jsonData[overlapType].annotated_entry_overlap;
 
-          // Display scenario_spec, split, part, instance_id, counts, and weighted_counts
-          const scenarioSpec = jsonData.entry_data_overlap_key.stats_key.light_scenario_key.scenario_spec;
-          const split = jsonData.entry_data_overlap_key.stats_key.light_scenario_key.split;
-          const part = jsonData.entry_data_overlap_key.part;
-          const instanceId = jsonData.entry_data_overlap_key.instance_id;
-          const overlapCounts = jsonData.overlap_counts;
-          const weightedOverlapCounts = jsonData.weighted_overlap_counts;
-          const totalCounts = jsonData.total_counts
-          const overlapRatio = jsonData.overlap_ratio;
-          const weightedOverlapRatio = jsonData.weighted_overlap_ratio;;
+            // Create a container for the annotations data
+            const annotationsContainer = document.createElement("div");
+            annotationsContainer.classList.add("annotations");
 
-          const annotationsData = document.createElement("pre");
-          annotationsData.textContent = `Scenario Spec: ${JSON.stringify(scenarioSpec, null, 2)}\nSplit: ${split}\nPart: ${part}\nInstance ID: ${instanceId}\nOverlap Counts: ${overlapCounts}\nWeighted Overlap Counts: ${weightedOverlapCounts}\nTotal Counts: ${totalCounts}\nOverlap Ratio: ${overlapRatio}\nWeighted Overlap Ratio: ${weightedOverlapRatio}\n`;
-          annotationsContainer.appendChild(annotationsData);
+            // Display scenario_spec, split, part, instance_id
+            const scenarioSpec = jsonData.stats_key.light_scenario_key.scenario_spec;
+            const split = jsonData.stats_key.light_scenario_key.split;
+            const part = jsonData[overlapType].part;
+            const instanceId = jsonData.instance_id;
 
-          // Create a container for the main paragraph content
-          const paragraphContainer = document.createElement("div");
-          paragraphContainer.classList.add("paragraph-container");
+            const annotationsData = document.createElement("pre");
+            annotationsData.textContent = `Scenario Spec: ${JSON.stringify(scenarioSpec, null, 2)}\nSplit: ${split}\nPart: ${part}\nInstance ID: ${instanceId}\nOverlap Type: ${overlapType}\n`;
+            annotationsContainer.appendChild(annotationsData);
 
-          // Create the paragraph content
-          const paragraphElement = document.createElement("p");
-          let paragraphHTML = "";
+            // Create a container for the main paragraph content
+            const paragraphContainer = document.createElement("div");
+            paragraphContainer.classList.add("paragraph-container");
 
-          let bold_counter = 0;
-          paragraphData.forEach(([word, count], i) => {
+            // Create the paragraph content
+            const paragraphElement = document.createElement("p");
+            let paragraphHTML = "";
 
-            let wordElement = `<span data-count="${count}">${word}</span>`;
+            let bold_counter = 0;
+            paragraphData.forEach(([word, count], i) => {
+              let wordElement = `<span data-count="${count}">${word}</span>`;
 
-            if (count > 0) {
-              wordElement = `<span class="bold" data-count="${count}">${word}</span>`;
-              bold_counter = 12;
-            }
-            else {
-              if (bold_counter > 0) {
-                bold_counter -= 1
-                wordElement = `<span class="bold" >${word}</span>`;;
+              if (count > 0) {
+                wordElement = `<span class="bold" data-count="${count}">${word}</span>`;
+                bold_counter = 12;
               }
-            }
+              else {
+                if (bold_counter > 0) {
+                  bold_counter -= 1;
+                  wordElement = `<span class="bold">${word}</span>`;
+                }
+              }
 
-            paragraphHTML += `${wordElement} `;
+              paragraphHTML += `${wordElement} `;
+            });
+
+            paragraphElement.innerHTML = paragraphHTML;
+            paragraphContainer.appendChild(paragraphElement);
+
+            // Append both containers to the paragraphs container
+            paragraphsContainer.appendChild(annotationsContainer);
+            paragraphsContainer.appendChild(paragraphContainer);
           });
-
-          paragraphElement.innerHTML = paragraphHTML;
-          paragraphContainer.appendChild(paragraphElement);
-
-          // Append both containers to the paragraphs container
-          paragraphsContainer.appendChild(annotationsContainer);
-          paragraphsContainer.appendChild(paragraphContainer);
         });
 
         // Add event listeners to show counts on hover for each word
@@ -85,18 +81,19 @@ document.addEventListener("DOMContentLoaded", function () {
         console.error("Error loading data:", error);
       });
     }
-      // Load JSONL data when the user clicks the load button
-    const loadButton = document.getElementById("load-button");
-    loadButton.addEventListener("click", function () {
-      const filenameInput = document.getElementById("jsonl-file");
-      const filename = filenameInput.value + '.jsonl';
 
-      // Clear existing content from paragraphs container
-      const paragraphsContainer = document.getElementById("paragraphs-container");
-      paragraphsContainer.innerHTML = "";
+  // Load JSONL data when the user clicks the load button
+  const loadButton = document.getElementById("load-button");
+  loadButton.addEventListener("click", function () {
+    const filenameInput = document.getElementById("jsonl-file");
+    const filename = filenameInput.value + '.jsonl';
 
-      // Load JSONL data with the given filename
-      loadJSONL(filename);
-    });
+    // Clear existing content from paragraphs container
+    const paragraphsContainer = document.getElementById("paragraphs-container");
+    paragraphsContainer.innerHTML = "";
+
+    // Load JSONL data with the given filename
+    loadJSONL(filename);
+  });
 
 });
