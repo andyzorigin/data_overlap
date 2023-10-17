@@ -1,3 +1,24 @@
+function getMetricLabel(metric) {
+  let partialOverlapLabel;
+  switch (metric.metric_protocol_spec.partial_overlap_spec) {
+    case 0:
+      partialOverlapLabel = "Binary";
+      break;
+    case 1:
+      partialOverlapLabel = "Jaccard";
+      break;
+    case 2:
+      partialOverlapLabel = "Token";
+      break;
+    default:
+      partialOverlapLabel = "Unknown";
+  }
+  const frequencyLabel = metric.metric_protocol_spec.frequency_spec.filter_value > 0 ? "filtered" : "unfiltered";
+  const weightingLabel = metric.metric_protocol_spec.frequency_spec.weighting ? "weighted" : "unweighted";
+
+  return `${partialOverlapLabel} ${frequencyLabel} ${weightingLabel}`;
+}
+
 document.addEventListener("DOMContentLoaded", function () {
   function loadJSONL(filename) {
 
@@ -11,24 +32,29 @@ document.addEventListener("DOMContentLoaded", function () {
 
         jsonObjects.forEach((jsonObject) => {
           const jsonData = JSON.parse(jsonObject);
-
+        
           ['annotated_input_overlap', 'annotated_ref_overlap'].forEach(overlapType => {
             const paragraphData = jsonData[overlapType].annotated_entry_overlap;
-
-            // Create a container for the annotations data
+            const metricsData = jsonData[overlapType].metrics;
+        
             const annotationsContainer = document.createElement("div");
             annotationsContainer.classList.add("annotations");
-
-            // Display scenario_spec, split, part, instance_id
+        
             const scenarioSpec = jsonData.stats_key.light_scenario_key.scenario_spec;
             const split = jsonData.stats_key.light_scenario_key.split;
             const part = jsonData[overlapType].part;
             const instanceId = jsonData.instance_id;
-
+        
             const annotationsData = document.createElement("pre");
             annotationsData.textContent = `Scenario Spec: ${JSON.stringify(scenarioSpec, null, 2)}\nSplit: ${split}\nPart: ${part}\nInstance ID: ${instanceId}\nOverlap Type: ${overlapType}\n`;
+        
+            metricsData.forEach(metric => {
+              const metricLabel = getMetricLabel(metric);
+              annotationsData.textContent += `${metricLabel}: ${metric.metric_score}\n`;
+            });
+        
             annotationsContainer.appendChild(annotationsData);
-
+        
             // Create a container for the main paragraph content
             const paragraphContainer = document.createElement("div");
             paragraphContainer.classList.add("paragraph-container");
@@ -38,22 +64,27 @@ document.addEventListener("DOMContentLoaded", function () {
             let paragraphHTML = "";
 
             let bold_counter = 0;
-            paragraphData.forEach(([word, count], i) => {
-              let wordElement = `<span data-count="${count}">${word}</span>`;
 
+            paragraphData.forEach(([word, count], i) => {
+              let wordContent = `<span class="word-content">${word}</span>`;
+              let countContent = `<span class="count-content">${count > 0 ? count : ''}</span>`;
+            
+              let wordElement = `<span class="word-container" data-count="${count}">${countContent}${wordContent}</span>`;
+            
               if (count > 0) {
-                wordElement = `<span class="bold" data-count="${count}">${word}</span>`;
+                wordElement = `<span class="word-container bold" data-count="${count}">${countContent}${wordContent}</span>`;
                 bold_counter = 12;
               }
               else {
                 if (bold_counter > 0) {
                   bold_counter -= 1;
-                  wordElement = `<span class="bold">${word}</span>`;
+                  wordElement = `<span class="word-container bold">${countContent}${wordContent}</span>`;
                 }
               }
-
+            
               paragraphHTML += `${wordElement} `;
             });
+            
 
             paragraphElement.innerHTML = paragraphHTML;
             paragraphContainer.appendChild(paragraphElement);

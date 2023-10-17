@@ -62,6 +62,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
+  top: -45px; /* Adjusted from -30px to ensure the tooltip appears further up */
 }
 
 span[data-count] {
@@ -78,3 +79,22 @@ span[data-count] {
   overflow-y: auto;
 }
 
+.word-container {
+  display: inline-block;
+  position: relative;
+  margin-right: 4px;
+  padding-top: 0em; /* Padding at the top to create space for the count */
+  min-height: 2em; /* Minimum height to ensure there's always room for the count, adjust if needed */
+}
+
+.count-content {
+  position: absolute;
+  font-size: 0.7em;
+  color: #555;
+  top: 0; /* Adjusted from -1.2em to 0 to position the count at the top of the .word-container */
+  transform: translateY(-100%); /* Moves the count content upwards by its height */
+}
+
+.bold .word-content {
+  font-weight: bold;
+}
