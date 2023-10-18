@@ -32,27 +32,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
         jsonObjects.forEach((jsonObject) => {
           const jsonData = JSON.parse(jsonObject);
-        
+    
           ['annotated_input_overlap', 'annotated_ref_overlap'].forEach(overlapType => {
             const paragraphData = jsonData[overlapType].annotated_entry_overlap;
             const metricsData = jsonData[overlapType].metrics;
-        
+    
             const annotationsContainer = document.createElement("div");
             annotationsContainer.classList.add("annotations");
-        
+    
             const scenarioSpec = jsonData.stats_key.light_scenario_key.scenario_spec;
             const split = jsonData.stats_key.light_scenario_key.split;
             const part = jsonData[overlapType].part;
             const instanceId = jsonData.instance_id;
-        
+    
             const annotationsData = document.createElement("pre");
-            annotationsData.textContent = `Scenario Spec: ${JSON.stringify(scenarioSpec, null, 2)}\nSplit: ${split}\nPart: ${part}\nInstance ID: ${instanceId}\nOverlap Type: ${overlapType}\n`;
-        
+    
+
+    
+            annotationsData.textContent += `Scenario Spec: ${JSON.stringify(scenarioSpec, null, 2)}\nSplit: ${split}\nPart: ${part}\nInstance ID: ${instanceId}\nOverlap Type: ${overlapType}\n`;
+    
             metricsData.forEach(metric => {
               const metricLabel = getMetricLabel(metric);
               annotationsData.textContent += `${metricLabel}: ${metric.metric_score}\n`;
             });
-        
+            
+            // Adding LightInstance information
+            if (overlapType === 'annotated_input_overlap') {
+              annotationsData.textContent += `Input: ${jsonData.instance.input}\n\n`;
+            } else if (overlapType === 'annotated_ref_overlap' && jsonData.instance.references.length > 0) {
+              annotationsData.textContent += `Reference: ${jsonData.instance.references.join("\n ")}\n\n`;
+            } 
             annotationsContainer.appendChild(annotationsData);
         
             // Create a container for the main paragraph content
@@ -114,10 +123,14 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
   // Load JSONL data when the user clicks the load button
-  const loadButton = document.getElementById("load-button");
-  loadButton.addEventListener("click", function () {
-    const filenameInput = document.getElementById("jsonl-file");
-    const filename = filenameInput.value + '.jsonl';
+  // const loadButton = document.getElementById("load-button");
+  // loadButton.addEventListener("click", function () {
+    // const filenameInput = document.getElementById("jsonl-file");
+    // const filename = filenameInput.value + '.jsonl';
+  const filenameInput = document.getElementById("jsonl-file");
+  filenameInput.addEventListener("change", function() {
+
+    const filename = document.getElementById("jsonl-file").value;
 
     // Clear existing content from paragraphs container
     const paragraphsContainer = document.getElementById("paragraphs-container");
@@ -126,5 +139,10 @@ document.addEventListener("DOMContentLoaded", function () {
     // Load JSONL data with the given filename
     loadJSONL(filename);
   });
-
+  // Event listener for click event to clear the text box
+  filenameInput.addEventListener("click", function() {
+    // Clear the text box
+    filenameInput.value = "";
+    filenameInput.focus();
+  });
 });

@@ -5,12 +5,74 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
+  <label for="jsonl-file">Select File:</label>
+  <input list="jsonl-files" id="jsonl-file" placeholder="Type or select a file" style="width: 500px;">
+  <datalist id="jsonl-files">
+    <!-- List all the JSONL filenames here as options -->
+    <option value="boolq_scenario.BoolQScenario_valid_input.jsonl"></option>
+    <option value="civil_comments_scenario.CivilCommentsScenario_test_input.jsonl"></option>
+    <option value="civil_comments_scenario.CivilCommentsScenario_valid_input.jsonl"></option>
+    <option value="code_scenario.CodeScenario_test_both.jsonl"></option>
+    <option value="code_scenario.CodeScenario_test_input.jsonl"></option>
+    <option value="code_scenario.CodeScenario_test_ref.jsonl"></option>
+    <option value="commonsense_scenario.CommonSenseScenario_valid_both.jsonl"></option>
+    <option value="commonsense_scenario.CommonSenseScenario_valid_input.jsonl"></option>
+    <option value="commonsense_scenario.CommonSenseScenario_valid_ref.jsonl"></option>
+    <option value="copyright_scenario.CopyrightScenario_test_both.jsonl"></option>
+    <option value="copyright_scenario.CopyrightScenario_test_input.jsonl"></option>
+    <option value="copyright_scenario.CopyrightScenario_test_ref.jsonl"></option>
+    <option value="disinformation_scenario.DisinformationScenario_valid_input.jsonl"></option>
+    <option value="disinformation_scenario.DisinformationScenario_valid_ref.jsonl"></option>
+    <option value="entity_data_imputation_scenario.EntityDataImputationScenario_test_input.jsonl"></option>
+    <option value="entity_matching_scenario.EntityMatchingScenario_test_input.jsonl"></option>
+    <option value="entity_matching_scenario.EntityMatchingScenario_valid_input.jsonl"></option>
+    <option value="ice_scenario.ICEScenario_test_input.jsonl"></option>
+    <option value="imdb_scenario.IMDBScenario_valid_input.jsonl"></option>
+    <option value="legal_support_scenario.LegalSupportScenario_test_both.jsonl"></option>
+    <option value="legal_support_scenario.LegalSupportScenario_test_input.jsonl"></option>
+    <option value="legal_support_scenario.LegalSupportScenario_test_ref.jsonl"></option>
+    <option value="legal_support_scenario.LegalSupportScenario_valid_both.jsonl"></option>
+    <option value="legal_support_scenario.LegalSupportScenario_valid_input.jsonl"></option>
+    <option value="legal_support_scenario.LegalSupportScenario_valid_ref.jsonl"></option>
+    <option value="lsat_qa_scenario.LSATScenario_test_input.jsonl"></option>
+    <option value="lsat_qa_scenario.LSATScenario_valid_input.jsonl"></option>
+    <option value="math_scenario.MATHScenario_test_both.jsonl"></option>
+    <option value="math_scenario.MATHScenario_test_input.jsonl"></option>
+    <option value="math_scenario.MATHScenario_test_ref.jsonl"></option>
+    <option value="mmlu_scenario.MMLUScenario_test_input.jsonl"></option>
+    <option value="msmarco_scenario.MSMARCOScenario_valid_both.jsonl"></option>
+    <option value="msmarco_scenario.MSMARCOScenario_valid_input.jsonl"></option>
+    <option value="msmarco_scenario.MSMARCOScenario_valid_ref.jsonl"></option>
+    <option value="narrativeqa_scenario.NarrativeQAScenario_test_input.jsonl"></option>
+    <option value="narrativeqa_scenario.NarrativeQAScenario_valid_input.jsonl"></option>
+    <option value="natural_qa_scenario.NaturalQAScenario_valid_both.jsonl"></option>
+    <option value="natural_qa_scenario.NaturalQAScenario_valid_input.jsonl"></option>
+    <option value="natural_qa_scenario.NaturalQAScenario_valid_ref.jsonl"></option>
+    <option value="quac_scenario.QuACScenario_valid_both.jsonl"></option>
+    <option value="quac_scenario.QuACScenario_valid_input.jsonl"></option>
+    <option value="quac_scenario.QuACScenario_valid_ref.jsonl"></option>
+    <option value="raft_scenario.RAFTScenario_test_input.jsonl"></option>
+    <option value="real_toxicity_prompts_scenario.RealToxicityPromptsScenario_test_input.jsonl"></option>
+    <option value="summarization_scenario.SummarizationScenario_test_both.jsonl"></option>
+    <option value="summarization_scenario.SummarizationScenario_test_input.jsonl"></option>
+    <option value="summarization_scenario.SummarizationScenario_test_ref.jsonl"></option>
+    <option value="summarization_scenario.SummarizationScenario_valid_both.jsonl"></option>
+    <option value="summarization_scenario.SummarizationScenario_valid_input.jsonl"></option>
+    <option value="summarization_scenario.SummarizationScenario_valid_ref.jsonl"></option>
+    <option value="the_pile_scenario.ThePileScenario_test_input.jsonl"></option>
+    <option value="truthful_qa_scenario.TruthfulQAScenario_valid_input.jsonl"></option>
+    <option value="truthful_qa_scenario.TruthfulQAScenario_valid_ref.jsonl"></option>
+    <option value="twitter_aae_scenario.TwitterAAEScenario_test_input.jsonl"></option>
+    <option value="wikifact_scenario.WIKIFactScenario_test_input.jsonl"></option>
+    <option value="wikifact_scenario.WIKIFactScenario_test_ref.jsonl"></option>
+    <option value="wikifact_scenario.WIKIFactScenario_valid_ref.jsonl"></option>
+  </datalist>
 
-  <div class="input-container">
+  <!-- <div class="input-container">
     <label for="jsonl-file">Enter {class_name}_{split}:</label>
     <input type="text" id="jsonl-file" value="legal_summarization_scenario.LegalSummarizationScenario_valid"  style="width: 500px;">
     <button id="load-button">Load JSONL</button>
-  </div>
+  </div> -->
   <div class="page-container">
     <!-- <div id="navigation-container" class="navigation"></div> -->
     <div class="container">
