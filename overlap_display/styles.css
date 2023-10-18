@@ -98,3 +98,27 @@ span[data-count] {
 .bold .word-content {
   font-weight: bold;
 }
+
+.input-reference-container {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 10px;
+  overflow-y: auto; /* Add vertical scroll if content overflows */
+  max-height: 200px; /* Limit the container height, adjust as needed */
+  background-color: #f5f5f5; /* Light gray background for contrast */
+}
+.show-more-button {
+  background-color: #444;
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  display: block;
+  margin: 5px 0;
+  text-align: center;
+}
+
+.annotations-content-hidden {
+  display: none;
+}

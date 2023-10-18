@@ -55,15 +55,38 @@ document.addEventListener("DOMContentLoaded", function () {
               const metricLabel = getMetricLabel(metric);
               annotationsData.textContent += `${metricLabel}: ${metric.metric_score}\n`;
             });
-            
-            // Adding LightInstance information
-            if (overlapType === 'annotated_input_overlap') {
-              annotationsData.textContent += `Input: ${jsonData.instance.input}\n\n`;
-            } else if (overlapType === 'annotated_ref_overlap' && jsonData.instance.references.length > 0) {
-              annotationsData.textContent += `Reference: ${jsonData.instance.references.join("\n ")}\n\n`;
-            } 
+
+            // Add a show more button
+            const showMoreButton = document.createElement("div");
+            showMoreButton.classList.add("show-more-button");
+            showMoreButton.textContent = "Show Metadata";
+            showMoreButton.addEventListener("click", function() {
+              if (annotationsData.classList.contains("annotations-content-hidden")) {
+                annotationsData.classList.remove("annotations-content-hidden");
+                showMoreButton.textContent = "Show Less";
+              } else {
+                annotationsData.classList.add("annotations-content-hidden");
+                showMoreButton.textContent = "Show More";
+              }
+            });
+
+            // Append the button and annotationsData to annotationsContainer
+            annotationsContainer.appendChild(showMoreButton);
+            annotationsData.classList.add("annotations-content-hidden");  // Initially hide the annotations data
             annotationsContainer.appendChild(annotationsData);
-        
+                   
+            // Adding LightInstance information
+            const inputRefContainer = document.createElement("div");
+            inputRefContainer.classList.add("input-reference-container");
+
+            if (overlapType === 'annotated_input_overlap') {
+              inputRefContainer.textContent = `Input: ${jsonData.instance.input}`;
+              annotationsContainer.appendChild(inputRefContainer);
+            } else if (overlapType === 'annotated_ref_overlap' && jsonData.instance.references.length > 0) {
+              inputRefContainer.textContent = `Reference: ${jsonData.instance.references.join("\n ")}`;
+              annotationsContainer.appendChild(inputRefContainer);
+            } 
+  
             // Create a container for the main paragraph content
             const paragraphContainer = document.createElement("div");
             paragraphContainer.classList.add("paragraph-container");
