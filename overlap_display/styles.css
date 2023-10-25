@@ -11,7 +11,7 @@ body {
 
 .page-container {
   display: flex;
-  max-width: 1600px; /* Increased the max-width to 1600px */
+  width: 100%; /* Make it as wide as its parent */
   margin: 10px auto;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);

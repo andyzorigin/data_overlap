@@ -21,7 +21,6 @@ function getMetricLabel(metric) {
 
 document.addEventListener("DOMContentLoaded", function () {
   function loadJSONL(filename) {
-
     const directoryPath = "ngram_data/";
     const fullPath = directoryPath + filename;
     fetch(fullPath)
@@ -47,8 +46,6 @@ document.addEventListener("DOMContentLoaded", function () {
     
             const annotationsData = document.createElement("pre");
     
-
-    
             annotationsData.textContent += `Scenario Spec: ${JSON.stringify(scenarioSpec, null, 2)}\nSplit: ${split}\nPart: ${part}\nInstance ID: ${instanceId}\nOverlap Type: ${overlapType}\n`;
     
             metricsData.forEach(metric => {
@@ -56,7 +53,6 @@ document.addEventListener("DOMContentLoaded", function () {
               annotationsData.textContent += `${metricLabel}: ${metric.metric_score}\n`;
             });
 
-            // Add a show more button
             const showMoreButton = document.createElement("div");
             showMoreButton.classList.add("show-more-button");
             showMoreButton.textContent = "Show Metadata";
@@ -70,12 +66,10 @@ document.addEventListener("DOMContentLoaded", function () {
               }
             });
 
-            // Append the button and annotationsData to annotationsContainer
             annotationsContainer.appendChild(showMoreButton);
-            annotationsData.classList.add("annotations-content-hidden");  // Initially hide the annotations data
+            annotationsData.classList.add("annotations-content-hidden");
             annotationsContainer.appendChild(annotationsData);
                    
-            // Adding LightInstance information
             const inputRefContainer = document.createElement("div");
             inputRefContainer.classList.add("input-reference-container");
 
@@ -87,11 +81,9 @@ document.addEventListener("DOMContentLoaded", function () {
               annotationsContainer.appendChild(inputRefContainer);
             } 
   
-            // Create a container for the main paragraph content
             const paragraphContainer = document.createElement("div");
             paragraphContainer.classList.add("paragraph-container");
 
-            // Create the paragraph content
             const paragraphElement = document.createElement("p");
             let paragraphHTML = "";
 
@@ -116,18 +108,15 @@ document.addEventListener("DOMContentLoaded", function () {
             
               paragraphHTML += `${wordElement} `;
             });
-            
 
             paragraphElement.innerHTML = paragraphHTML;
             paragraphContainer.appendChild(paragraphElement);
 
-            // Append both containers to the paragraphs container
             paragraphsContainer.appendChild(annotationsContainer);
             paragraphsContainer.appendChild(paragraphContainer);
           });
         });
 
-        // Add event listeners to show counts on hover for each word
         const wordSpans = document.querySelectorAll(".paragraph-container span");
         wordSpans.forEach((span) => {
           span.addEventListener("mouseover", function () {
@@ -145,26 +134,18 @@ document.addEventListener("DOMContentLoaded", function () {
       });
     }
 
-  // Load JSONL data when the user clicks the load button
-  // const loadButton = document.getElementById("load-button");
-  // loadButton.addEventListener("click", function () {
-    // const filenameInput = document.getElementById("jsonl-file");
-    // const filename = filenameInput.value + '.jsonl';
   const filenameInput = document.getElementById("jsonl-file");
   filenameInput.addEventListener("change", function() {
 
     const filename = document.getElementById("jsonl-file").value;
 
-    // Clear existing content from paragraphs container
     const paragraphsContainer = document.getElementById("paragraphs-container");
     paragraphsContainer.innerHTML = "";
 
-    // Load JSONL data with the given filename
     loadJSONL(filename);
   });
-  // Event listener for click event to clear the text box
+
   filenameInput.addEventListener("click", function() {
-    // Clear the text box
     filenameInput.value = "";
     filenameInput.focus();
   });
