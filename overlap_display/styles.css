@@ -5,13 +5,13 @@ body {
   background-color: #f0f0f0;
 }
 
-.jsonl-file{
-  width: 800px; /* Set the width to your desired value */
+.jsonl-file {
+  width: 1000px; /* Increased the width to 1000px */
 }
 
 .page-container {
   display: flex;
-  max-width: 1200px;
+  max-width: 1600px; /* Increased the max-width to 1600px */
   margin: 10px auto;
   background-color: #fff;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -27,7 +27,7 @@ body {
 }
 
 .navigation {
-  width: 200px;
+  width: 300px; /* Increased the width to 300px */
   border-right: 1px solid #ccc;
   padding: 10px;
   overflow-y: auto; /* Add vertical scroll if content overflows */
@@ -39,8 +39,6 @@ body {
   border-radius: 5px;
   padding: 10px;
   margin-bottom: 10px;
-  overflow-y: auto; /* Add vertical scroll if content overflows */
-  max-height: 400px; /* Limit the paragraph container height */
 }
 
 .bold {
@@ -50,23 +48,20 @@ body {
 }
 
 .bold:hover::before {
-  content: " Count: " attr(data-count) ; /* Display count on hover */
-  /* background-color: #000 */
-  background-color: rgba(0, 0, 0, 0.5); /* Background color with 80% opacity */
- ;
+  content: " Count: " attr(data-count);
+  background-color: rgba(0, 0, 0, 0.5);
   color: #fff;
   padding: 4px 8px;
   border-radius: 4px;
   position: absolute;
-  top: -30px;
+  top: -45px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1;
-  top: -45px; /* Adjusted from -30px to ensure the tooltip appears further up */
 }
 
 span[data-count] {
-  cursor: default; /* Show the cursor as a pointer when hovering over words with counts */
+  cursor: default;
 }
 
 /* Additional styles for scenario sections */
@@ -75,24 +70,22 @@ span[data-count] {
   border-radius: 5px;
   padding: 10px;
   margin-top: 10px;
-  max-height: 300px;
-  overflow-y: auto;
 }
 
 .word-container {
   display: inline-block;
   position: relative;
   margin-right: 4px;
-  padding-top: 0em; /* Padding at the top to create space for the count */
-  min-height: 2em; /* Minimum height to ensure there's always room for the count, adjust if needed */
+  padding-top: 0em;
+  min-height: 2em;
 }
 
 .count-content {
   position: absolute;
   font-size: 0.7em;
   color: #555;
-  top: 0; /* Adjusted from -1.2em to 0 to position the count at the top of the .word-container */
-  transform: translateY(-100%); /* Moves the count content upwards by its height */
+  top: 0;
+  transform: translateY(-100%);
 }
 
 .bold .word-content {
@@ -104,10 +97,9 @@ span[data-count] {
   border-radius: 5px;
   padding: 10px;
   margin-top: 10px;
-  overflow-y: auto; /* Add vertical scroll if content overflows */
-  max-height: 200px; /* Limit the container height, adjust as needed */
-  background-color: #f5f5f5; /* Light gray background for contrast */
+  background-color: #f5f5f5;
 }
+
 .show-more-button {
   background-color: #444;
   color: white;
